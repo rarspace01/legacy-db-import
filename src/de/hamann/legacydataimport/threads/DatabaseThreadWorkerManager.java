@@ -1,4 +1,4 @@
-package de.hamann.legacydataimport;
+package de.hamann.legacydataimport.threads;
 
 import java.util.List;
 

@@ -2,6 +2,7 @@ package de.hamann.legacydataimport;
 
 import de.hamann.legacydataimport.model.ModelHandlerManager;
 import de.hamann.legacydataimport.model.ModelHandlerStocks;
+import de.hamann.legacydataimport.threads.DatabaseThreadHandler;
 
 public class ImportController {
 
