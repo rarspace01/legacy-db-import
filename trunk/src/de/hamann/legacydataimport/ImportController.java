@@ -1,6 +1,7 @@
 package de.hamann.legacydataimport;
 
 import de.hamann.legacydataimport.model.ModelHandlerManager;
+import de.hamann.legacydataimport.model.ModelHandlerPortfolioHolding;
 import de.hamann.legacydataimport.model.ModelHandlerStocks;
 import de.hamann.legacydataimport.threads.DatabaseThreadHandler;
 
@@ -24,9 +25,11 @@ public class ImportController {
 							DatabaseThreadHandler.getInstance().addManagers(new ModelHandlerManager().importFile(currentFile));
 							break;
 				case 342:	System.out.println("Detected Stock File"); 
-				DatabaseThreadHandler.getInstance().addStocks(new ModelHandlerStocks().importFile(currentFile));
+							DatabaseThreadHandler.getInstance().addStocks(new ModelHandlerStocks().importFile(currentFile));
 							break;
-				case 343: 	System.out.println("Detected");
+				case 343: 	
+							System.out.println("Detected PortfolioHolding File");
+							DatabaseThreadHandler.getInstance().addphs(new ModelHandlerPortfolioHolding().importFile(currentFile));
 							break;
 				case 344: 	break;
 				case 345: 	break;

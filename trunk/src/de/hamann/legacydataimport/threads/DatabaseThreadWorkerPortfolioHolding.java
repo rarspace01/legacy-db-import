@@ -2,18 +2,20 @@ package de.hamann.legacydataimport.threads;
 
 import java.util.List;
 
+import de.hamann.legacydataimport.data.DataHandlerPortfolioHolding;
 import de.hamann.legacydataimport.data.DataHandlerStocks;
+import de.hamann.legacydataimport.model.PortfolioHolding;
 import de.hamann.legacydataimport.model.Stock;
 
 public class DatabaseThreadWorkerPortfolioHolding implements Runnable {
 
 	private DatabaseThreadHandler dtm_=null;
-	private List<Stock> stocks;
+	private List<PortfolioHolding> phs_;
 	
-	public DatabaseThreadWorkerPortfolioHolding(DatabaseThreadHandler databaseThreadStocks,
-			List<Stock> stocks) {
-		dtm_=databaseThreadStocks;
-		this.stocks=stocks;
+	public DatabaseThreadWorkerPortfolioHolding(DatabaseThreadHandler databaseThreadphs,
+			List<PortfolioHolding> phs) {
+		dtm_=databaseThreadphs;
+		this.phs_=phs;
 	}
 
 	@Override
@@ -24,11 +26,11 @@ public class DatabaseThreadWorkerPortfolioHolding implements Runnable {
 		
 		long start=System.currentTimeMillis();
 		
-		System.out.println("[ThreadM] got Stocks: "+ stocks.size());
+		System.out.println("[ThreadM] got Stocks: "+ phs_.size());
 		
-		new DataHandlerStocks().saveStocks(stocks);
+		new DataHandlerPortfolioHolding().savephs(phs_);
 		
-		System.out.println("Finished Stocks-Thread after ["+(System.currentTimeMillis()-start)+"]ms - Speed:"+((System.currentTimeMillis()-start)/(stocks.size()))+"ms/statement");
+		System.out.println("Finished Stocks-Thread after ["+(System.currentTimeMillis()-start)+"]ms - Speed:"+((System.currentTimeMillis()-start)/(phs_.size()))+"ms/statement");
 		
 		if(dtm_!=null)
 		dtm_.setiWorkingThreads(dtm_.getiWorkingThreads()-1);
