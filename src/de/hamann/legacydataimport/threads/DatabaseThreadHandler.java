@@ -4,6 +4,7 @@ import java.util.List;
 
 import de.hamann.legacydataimport.Config;
 import de.hamann.legacydataimport.model.Manager;
+import de.hamann.legacydataimport.model.PortfolioHolding;
 import de.hamann.legacydataimport.model.Stock;
 
 public class DatabaseThreadHandler {
@@ -54,11 +55,33 @@ public class DatabaseThreadHandler {
 				e.printStackTrace();
 			}
 		}
+		int iCur=getiWorkingThreads();
 		Thread t1=new Thread(new DatabaseThreadWorkerStocks(this, stocks));
 		t1.start();
-		System.out.println("Thread started ["+getiWorkingThreads()+"/"+Config.MAX_THREADS+"]");
+		System.out.println("Thread started ["+(iCur+1)+"/"+Config.MAX_THREADS+"]");
 	}
 
+	public void addphs(List<PortfolioHolding> phs){
+		try {
+			Thread.sleep(25);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		while(getiWorkingThreads()>Config.MAX_THREADS){
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		int iCur=getiWorkingThreads();
+		Thread t1=new Thread(new DatabaseThreadWorkerPortfolioHolding(this, phs));
+		t1.start();
+		System.out.println("Thread started ["+(iCur+1)+"/"+Config.MAX_THREADS+"]");
+	}
+	
 	public int getiWorkingThreads() {
 		return iWorkingThreads;
 	}

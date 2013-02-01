@@ -10,7 +10,7 @@ import de.hamann.legacydataimport.model.PortfolioHolding;
 
 public class DataHandlerPortfolioHolding  {
 	
-	public void saveStocks(List<PortfolioHolding> phList){
+	public void savephs(List<PortfolioHolding> phList){
 		
 		DataManagerMySQL dmmysql=new DataManagerMySQL();
 		Connection conn= dmmysql.getConnection();
