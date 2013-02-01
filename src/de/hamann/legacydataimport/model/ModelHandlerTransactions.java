@@ -12,12 +12,14 @@ import java.util.List;
 
 import de.hamann.legacydataimport.FW;
 import de.hamann.legacydataimport.ImportController;
+import de.hamann.legacydataimport.data.DataHandlerTransactions;
 
 public class ModelHandlerTransactions {
 
 	private String fullPath_="";
 	
-	public List<Transactions> importFile(String fullPath){
+	public void importFile(String fullPath){
+		DataHandlerTransactions dht=new DataHandlerTransactions();
 		this.fullPath_=fullPath;		
 		List<Transactions> tList=new ArrayList<Transactions>();
 		try{
@@ -48,6 +50,10 @@ public class ModelHandlerTransactions {
 				  
 				  tList.add(tmpTransaction1);
 				  
+				  //directly put to database
+				  dht.saveTs(tList);
+				  tList.clear();
+				  
 			  }
 			  //Close the input stream
 			  in.close();
@@ -55,7 +61,7 @@ public class ModelHandlerTransactions {
 			    	e.printStackTrace();
 			  System.err.println("Error: " + e.getMessage());
 			  }
-		return tList;
+		//return tList;
 	}
 	
 	
