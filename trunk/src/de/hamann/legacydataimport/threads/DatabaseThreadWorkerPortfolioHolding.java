@@ -3,9 +3,7 @@ package de.hamann.legacydataimport.threads;
 import java.util.List;
 
 import de.hamann.legacydataimport.data.DataHandlerPortfolioHolding;
-import de.hamann.legacydataimport.data.DataHandlerStocks;
 import de.hamann.legacydataimport.model.PortfolioHolding;
-import de.hamann.legacydataimport.model.Stock;
 
 public class DatabaseThreadWorkerPortfolioHolding implements Runnable {
 

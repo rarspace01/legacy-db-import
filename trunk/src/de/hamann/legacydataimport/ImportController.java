@@ -32,8 +32,8 @@ public class ImportController {
 							DatabaseThreadHandler.getInstance().addphs(new ModelHandlerPortfolioHolding().importFile(currentFile));
 							break;
 				case 344: 	break;
-				case 345: 	break;
 				case 346: 	break;
+				default:	break;
 				}
 				
 			}
