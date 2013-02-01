@@ -12,8 +12,7 @@ public class DataHandlerPortfolioHolding  {
 	
 	public void savephs(List<PortfolioHolding> phList){
 		
-		DataManagerMySQL dmmysql=new DataManagerMySQL();
-		Connection conn= dmmysql.getConnection();
+		Connection conn= DataManagerMySQLSingleton.getInstance().getConnection();
 		PreparedStatement pstmt = null;
 		
 			for(int i=0;i<phList.size();i++){
@@ -49,10 +48,6 @@ public class DataHandlerPortfolioHolding  {
 			}
 			pstmt=null;
 			//System.out.println("added & executed querys"+objectList.size());
-
-			dmmysql.dispose();
-			dmmysql=null;
-		
 		
 	}
 

@@ -62,7 +62,7 @@ public class DatabaseThreadHandler {
 		System.out.println("Thread started ["+(iCur+1)+"/"+Config.MAX_THREADS+"]");
 	}
 
-	public void addphs(List<PortfolioHolding> phs){
+	public void addphs(String phs){
 		try {
 			Thread.sleep(25);
 		} catch (InterruptedException e1) {
@@ -83,7 +83,7 @@ public class DatabaseThreadHandler {
 		System.out.println("Thread started ["+(iCur+1)+"/"+Config.MAX_THREADS+"]");
 	}
 	
-	public void addTransactions(List<Transactions> tList){
+	public void addTransactions(String sTs){
 		try {
 			Thread.sleep(25);
 		} catch (InterruptedException e1) {
@@ -99,7 +99,7 @@ public class DatabaseThreadHandler {
 			}
 		}
 		int iCur=getiWorkingThreads();
-		Thread t1=new Thread(new DatabaseThreadWorkerTransactions(this, tList));
+		Thread t1=new Thread(new DatabaseThreadWorkerTransactions(this, sTs));
 		t1.start();
 		System.out.println("Thread started ["+(iCur+1)+"/"+Config.MAX_THREADS+"]");
 	}

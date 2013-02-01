@@ -12,14 +12,16 @@ import java.util.List;
 
 import de.hamann.legacydataimport.FW;
 import de.hamann.legacydataimport.ImportController;
+import de.hamann.legacydataimport.data.DataHandlerPortfolioHolding;
 
 public class ModelHandlerPortfolioHolding {
 
 	private String fullPath_="";
 	
-	public List<PortfolioHolding> importFile(String fullPath){
+	public void importFile(String fullPath){
 		this.fullPath_=fullPath;		
 		List<PortfolioHolding> phList=new ArrayList<PortfolioHolding>();
+		DataHandlerPortfolioHolding dhph=new DataHandlerPortfolioHolding();
 		try{
 			  // Open the file that is the first 
 			  // command line parameter
@@ -63,6 +65,8 @@ public class ModelHandlerPortfolioHolding {
 				  
 				  phList.add(tmpPortfolioHolding1);
 				  
+				  dhph.savephs(phList);
+				  phList.clear();
 			  }
 			  //Close the input stream
 			  in.close();
@@ -70,7 +74,6 @@ public class ModelHandlerPortfolioHolding {
 			    	e.printStackTrace();
 			  System.err.println("Error: " + e.getMessage());
 			  }
-		return phList;
 	}
 	
 	

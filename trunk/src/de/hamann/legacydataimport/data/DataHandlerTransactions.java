@@ -12,8 +12,7 @@ public class DataHandlerTransactions  {
 	
 	public void saveTs(List<Transactions> tList){
 		
-		DataManagerMySQL dmmysql=new DataManagerMySQL();
-		Connection conn= dmmysql.getConnection();
+		Connection conn= DataManagerMySQLSingleton.getInstance().getConnection();
 		PreparedStatement pstmt = null;
 		
 			for(int i=0;i<tList.size();i++){
@@ -48,10 +47,6 @@ public class DataHandlerTransactions  {
 			pstmt=null;
 			//System.out.println("added & executed querys"+objectList.size());
 
-			dmmysql.dispose();
-			dmmysql=null;
-		
-		
 	}
 
 }

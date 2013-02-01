@@ -30,13 +30,13 @@ public class ImportController {
 							break;
 				case 343: 	
 							System.out.println("Detected PortfolioHolding File");
-							DatabaseThreadHandler.getInstance().addphs(new ModelHandlerPortfolioHolding().importFile(currentFile));
+							DatabaseThreadHandler.getInstance().addphs(currentFile);
 							break;
 				case 344: 	System.out.println("Detected Transactions File");
-							DatabaseThreadHandler.getInstance().addTransactions(new ModelHandlerTransactions().importFile(currentFile));
+							DatabaseThreadHandler.getInstance().addTransactions(currentFile);
 							break;
 				case 346: 	System.out.println("Detected Transactions File");
-							DatabaseThreadHandler.getInstance().addTransactions(new ModelHandlerTransactions().importFile(currentFile));
+							DatabaseThreadHandler.getInstance().addTransactions(currentFile);
 							break;
 				default:	System.out.println("Detected Transactions File");
 							break;

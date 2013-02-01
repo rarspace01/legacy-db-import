@@ -1,19 +1,16 @@
 package de.hamann.legacydataimport.threads;
 
-import java.util.List;
-
-import de.hamann.legacydataimport.data.DataHandlerPortfolioHolding;
-import de.hamann.legacydataimport.model.PortfolioHolding;
+import de.hamann.legacydataimport.model.ModelHandlerPortfolioHolding;;
 
 public class DatabaseThreadWorkerPortfolioHolding implements Runnable {
 
 	private DatabaseThreadHandler dtm_=null;
-	private List<PortfolioHolding> phs_;
+	private String phs_;
 	
 	public DatabaseThreadWorkerPortfolioHolding(DatabaseThreadHandler databaseThreadphs,
-			List<PortfolioHolding> phs) {
+			String sPath) {
 		dtm_=databaseThreadphs;
-		this.phs_=phs;
+		this.phs_=sPath;
 	}
 
 	@Override
@@ -24,11 +21,11 @@ public class DatabaseThreadWorkerPortfolioHolding implements Runnable {
 		
 		long start=System.currentTimeMillis();
 		
-		System.out.println("[ThreadM] got PortfolioHoldings: "+ phs_.size());
+		ModelHandlerPortfolioHolding mhph=new ModelHandlerPortfolioHolding();
+		mhph.importFile(phs_);
+		//mht.
 		
-		new DataHandlerPortfolioHolding().savephs(phs_);
-		
-		System.out.println("Finished PortfolioThreads-Thread after ["+(System.currentTimeMillis()-start)+"]ms - Speed:"+((System.currentTimeMillis()-start)/(phs_.size()))+"ms/statement");
+		System.out.println("Finished PortfolioThreads-Thread after ["+(System.currentTimeMillis()-start)+"]ms");
 		
 		if(dtm_!=null)
 		dtm_.setiWorkingThreads(dtm_.getiWorkingThreads()-1);
