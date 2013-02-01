@@ -24,11 +24,11 @@ public class DatabaseThreadWorkerPortfolioHolding implements Runnable {
 		
 		long start=System.currentTimeMillis();
 		
-		System.out.println("[ThreadM] got Stocks: "+ phs_.size());
+		System.out.println("[ThreadM] got PortfolioHoldings: "+ phs_.size());
 		
 		new DataHandlerPortfolioHolding().savephs(phs_);
 		
-		System.out.println("Finished Stocks-Thread after ["+(System.currentTimeMillis()-start)+"]ms - Speed:"+((System.currentTimeMillis()-start)/(phs_.size()))+"ms/statement");
+		System.out.println("Finished PortfolioThreads-Thread after ["+(System.currentTimeMillis()-start)+"]ms - Speed:"+((System.currentTimeMillis()-start)/(phs_.size()))+"ms/statement");
 		
 		if(dtm_!=null)
 		dtm_.setiWorkingThreads(dtm_.getiWorkingThreads()-1);

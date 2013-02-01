@@ -6,7 +6,6 @@ import java.util.List;
 
 public class DataManagerFileIndex {
 
-	private String rootpath_;
 	private String currentFile_;
 	private List<String> fileList_ = new ArrayList<String>();
 	private int currentIndex=0;

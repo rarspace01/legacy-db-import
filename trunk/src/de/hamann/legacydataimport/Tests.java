@@ -7,19 +7,35 @@ import de.hamann.legacydataimport.model.Manager;
 import de.hamann.legacydataimport.model.ModelHandlerManager;
 import de.hamann.legacydataimport.model.ModelHandlerPortfolioHolding;
 import de.hamann.legacydataimport.model.ModelHandlerStocks;
+import de.hamann.legacydataimport.model.ModelHandlerTransactions;
 import de.hamann.legacydataimport.model.PortfolioHolding;
 import de.hamann.legacydataimport.model.Stock;
+import de.hamann.legacydataimport.model.Transactions;
 
 public class Tests {
 
 	public static void main(String[] args) {
 		
 		Tests mTest=new Tests();
-		mTest.phTest();
+		mTest.transactionsTest();
+		//mTest.phTest();
 		//mTest.managerTest();
 		//mTest.stocksTest();
 	}
 	
+	private void transactionsTest() {
+		List<Transactions> tmpTs=new ArrayList<Transactions>();
+		
+		tmpTs=new ModelHandlerTransactions().importFile("C:/Users/denis/Documents/db/13F_History_s34/s344.0106");
+		
+		System.out.println("size: "+tmpTs.size());
+		
+		for(int i=0;i<tmpTs.size();i++){
+			tmpTs.get(i).printAll();
+		}
+		
+	}
+
 	private void phTest(){
 		List<PortfolioHolding> tmpPhs=new ArrayList<PortfolioHolding>();
 		
