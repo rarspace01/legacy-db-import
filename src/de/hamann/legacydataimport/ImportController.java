@@ -3,13 +3,14 @@ package de.hamann.legacydataimport;
 import de.hamann.legacydataimport.model.ModelHandlerManager;
 import de.hamann.legacydataimport.model.ModelHandlerPortfolioHolding;
 import de.hamann.legacydataimport.model.ModelHandlerStocks;
+import de.hamann.legacydataimport.model.ModelHandlerTransactions;
 import de.hamann.legacydataimport.threads.DatabaseThreadHandler;
 
 public class ImportController {
 
 	public void import_Db() {
 		
-		DataManagerFileIndex localIndex = new DataManagerFileIndex("C:/Users/denis/Documents/db/13F_History_s34");
+		DataManagerFileIndex localIndex = new DataManagerFileIndex("./db");
 		
 		String currentFile;
 		
@@ -31,9 +32,14 @@ public class ImportController {
 							System.out.println("Detected PortfolioHolding File");
 							DatabaseThreadHandler.getInstance().addphs(new ModelHandlerPortfolioHolding().importFile(currentFile));
 							break;
-				case 344: 	break;
-				case 346: 	break;
-				default:	break;
+				case 344: 	System.out.println("Detected Transactions File");
+							DatabaseThreadHandler.getInstance().addTransactions(new ModelHandlerTransactions().importFile(currentFile));
+							break;
+				case 346: 	System.out.println("Detected Transactions File");
+							DatabaseThreadHandler.getInstance().addTransactions(new ModelHandlerTransactions().importFile(currentFile));
+							break;
+				default:	System.out.println("Detected Transactions File");
+							break;
 				}
 				
 			}

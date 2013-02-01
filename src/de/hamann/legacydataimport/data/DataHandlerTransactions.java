@@ -6,33 +6,31 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-import de.hamann.legacydataimport.model.PortfolioHolding;
+import de.hamann.legacydataimport.model.Transactions;
 
 public class DataHandlerTransactions  {
 	
-	public void savephs(List<PortfolioHolding> phList){
+	public void saveTs(List<Transactions> tList){
 		
 		DataManagerMySQL dmmysql=new DataManagerMySQL();
 		Connection conn= dmmysql.getConnection();
 		PreparedStatement pstmt = null;
 		
-			for(int i=0;i<phList.size();i++){
+			for(int i=0;i<tList.size();i++){
 				try {
-					pstmt = conn.prepareStatement("INSERT INTO db_legacy.portfolioholding (cusip, reportdate, manager_number, typecode, sharehold_eoq, solevotingauthsharesheld, sharedvotingauthsharesheld, novotingauthsharesheld)"
-							+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
-						pstmt.setString(1, phList.get(i).cusip);
-						pstmt.setDate(2,new Date(phList.get(i).reportdate.getTime()));
-						pstmt.setInt(3, phList.get(i).manager_number);
-						pstmt.setString(4,phList.get(i).typecode);
-						pstmt.setLong(5,phList.get(i).sharehold_eoq);
-						pstmt.setLong(6,phList.get(i).solevotingauthsharesheld);
-						pstmt.setLong(7,phList.get(i).sharedvotingauthsharesheld);
-						pstmt.setLong(8, phList.get(i).novotingauthsharesheld);
+					pstmt = conn.prepareStatement("INSERT INTO db_legacy.transactions (cusip, reportdate, manager_number, typecode, netchange, sharesheld)"
+							+ " VALUES (?, ?, ?, ?, ?, ?);");
+						pstmt.setString(1, tList.get(i).cusip);
+						pstmt.setDate(2,new Date(tList.get(i).reportdate.getTime()));
+						pstmt.setInt(3, tList.get(i).manager_number);
+						pstmt.setString(4,tList.get(i).typecode);
+						pstmt.setLong(5,tList.get(i).netChange);
+						pstmt.setLong(6,tList.get(i).sharesheld);
 						pstmt.execute();
 				
 			} catch (SQLException e) {
 				if(!e.getMessage().contains("Duplicate entry")){
-					System.out.println(phList.get(0).reportdate.toString());
+					System.out.println(tList.get(0).reportdate.toString());
 					e.printStackTrace();
 				}
 			}
