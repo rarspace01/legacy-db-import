@@ -18,27 +18,33 @@ public class ImportController {
 		int iCur=1;
 		
 		while((currentFile=localIndex.getNextFile())!=null){
-			System.out.println("["+iCur+"/"+iMax+"] - ["+currentFile+"]");
+			System.out.print("["+iCur+"/"+iMax+"] - ["+currentFile+"]");
+			//updateProgress((iCur/iMax));
 			if(isValidFileName(currentFile)){
 				//System.out.println(getFilename(currentFile)+" - "+getYear(currentFile)+" - "+getQuarter(currentFile));
 				switch(getFileType(currentFile)){
-				case 341: 	System.out.println("Detected Manager File");
-							DatabaseThreadHandler.getInstance().addManagers(new ModelHandlerManager().importFile(currentFile));
+				case 341: 	System.out.println(" - M");
+							//DatabaseThreadHandler.getInstance().addManagers(new ModelHandlerManager().importFile(currentFile));
+							new ModelHandlerManager().importFile(currentFile);
 							break;
-				case 342:	System.out.println("Detected Stock File"); 
-							DatabaseThreadHandler.getInstance().addStocks(new ModelHandlerStocks().importFile(currentFile));
+				case 342:	System.out.println(" - S"); 
+							//DatabaseThreadHandler.getInstance().addStocks(new ModelHandlerStocks().importFile(currentFile));
+							new ModelHandlerStocks().importFile(currentFile);
 							break;
 				case 343: 	
-							System.out.println("Detected PortfolioHolding File");
-							DatabaseThreadHandler.getInstance().addphs(currentFile);
+							System.out.println(" - P");
+							//DatabaseThreadHandler.getInstance().addphs(currentFile);
+							new ModelHandlerPortfolioHolding().importFile(currentFile);
 							break;
-				case 344: 	System.out.println("Detected Transactions File");
-							DatabaseThreadHandler.getInstance().addTransactions(currentFile);
+				case 344: 	System.out.println(" - T");
+							//DatabaseThreadHandler.getInstance().addTransactions(currentFile);
+							new ModelHandlerTransactions().importFile(currentFile);
 							break;
-				case 346: 	System.out.println("Detected Transactions File");
-							DatabaseThreadHandler.getInstance().addTransactions(currentFile);
+				case 346: 	System.out.println(" - T");
+							//DatabaseThreadHandler.getInstance().addTransactions(currentFile);
+							new ModelHandlerTransactions().importFile(currentFile);
 							break;
-				default:	System.out.println("Detected Transactions File");
+				default:	System.out.println("no File");
 							break;
 				}
 				
@@ -152,5 +158,19 @@ public class ImportController {
 		}
 		return iFiletype;
 	}
+	
+	  static void updateProgress(double progressPercentage) {
+		    final int width = 50; // progress bar width in chars
+
+		    System.out.print("\r[");
+		    int i = 0;
+		    for (; i <= (int)(progressPercentage*width); i++) {
+		      System.out.print(".");
+		    }
+		    for (; i < width; i++) {
+		      System.out.print(" ");
+		    }
+		    System.out.print("]");
+	  }
 	
 }

@@ -12,12 +12,13 @@ import java.util.List;
 
 import de.hamann.legacydataimport.FW;
 import de.hamann.legacydataimport.ImportController;
+import de.hamann.legacydataimport.data.DataHandlerStocks;
 
 public class ModelHandlerStocks {
 
 	private String fullPath_="";
 	
-	public List<Stock> importFile(String fullPath){
+	public void importFile(String fullPath){
 		this.fullPath_=fullPath;		
 		List<Stock> stockList=new ArrayList<Stock>();
 		try{
@@ -83,7 +84,8 @@ public class ModelHandlerStocks {
 			    	e.printStackTrace();
 			  System.err.println("Error: " + e.getMessage());
 			  }
-		return stockList;
+		new DataHandlerStocks().saveStocks(stockList);
+		//return stockList;
 	}
 	
 	
