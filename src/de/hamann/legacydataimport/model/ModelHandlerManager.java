@@ -12,12 +12,13 @@ import java.util.List;
 
 import de.hamann.legacydataimport.FW;
 import de.hamann.legacydataimport.ImportController;
+import de.hamann.legacydataimport.data.DataHandlerManager;
 
 public class ModelHandlerManager {
 
 	private String fullPath_="";
 	
-	public List<Manager> importFile(String fullPath){
+	public void importFile(String fullPath){
 		this.fullPath_=fullPath;		
 		List<Manager> managerList=new ArrayList<Manager>();
 		try{
@@ -59,7 +60,8 @@ public class ModelHandlerManager {
 			    }catch (Exception e){//Catch exception if any
 			  System.err.println("Error: " + e.getMessage());
 			  }
-		return managerList;
+		new DataHandlerManager().saveManagers(managerList);
+		//return managerList;
 	}
 	
 	

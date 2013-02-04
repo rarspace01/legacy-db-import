@@ -4,9 +4,7 @@ import java.util.List;
 
 import de.hamann.legacydataimport.Config;
 import de.hamann.legacydataimport.model.Manager;
-import de.hamann.legacydataimport.model.PortfolioHolding;
 import de.hamann.legacydataimport.model.Stock;
-import de.hamann.legacydataimport.model.Transactions;
 
 public class DatabaseThreadHandler {
 

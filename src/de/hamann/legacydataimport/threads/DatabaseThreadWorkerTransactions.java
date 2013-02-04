@@ -19,9 +19,6 @@ public class DatabaseThreadWorkerTransactions implements Runnable {
 		if(dtm_!=null)
 		dtm_.setiWorkingThreads(dtm_.getiWorkingThreads()+1);
 		
-		long start=System.currentTimeMillis();
-		
-		
 		ModelHandlerTransactions mht=new ModelHandlerTransactions();
 		mht.importFile(sTs_);
 		
