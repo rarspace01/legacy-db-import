@@ -20,17 +20,34 @@ public class DataHandlerTransactions  {
 			for(int i=0;i<tList.size();i++){
 				try {
 					
-					FileWriter fstream = new FileWriter("out.sql",true);
-					BufferedWriter out = new BufferedWriter(fstream);
-					out.write("INSERT INTO db_legacy.transactions (cusip, reportdate, manager_number, typecode, netchange, sharesheld)"+
-					" VALUES ('" +
-					tList.get(i).cusip.replace("'", "''")+"', '" +
-					dateFormat.format(tList.get(i).reportdate)+"', '" +
-					tList.get(i).manager_number+"', '" +
-					tList.get(i).typecode.replace("'", "''")+"', '" +
-					tList.get(i).netChange+"', '" +
-					tList.get(i).sharesheld+"');\n");
-					out.close();
+					if(tList.get(i).sharesheld==0){
+					
+						FileWriter fstream = new FileWriter("out.sql",true);
+						BufferedWriter out = new BufferedWriter(fstream);
+						out.write("INSERT INTO db_legacy.transactions (cusip, reportdate, manager_number, typecode, netchange, sharesheld)"+
+						" VALUES ('" +
+						tList.get(i).cusip.replace("'", "''")+"', '" +
+						dateFormat.format(tList.get(i).reportdate)+"', '" +
+						tList.get(i).manager_number+"', '" +
+						tList.get(i).typecode.replace("'", "''")+"', '" +
+						tList.get(i).netChange+"', '" +
+						tList.get(i).sharesheld+"');\n");
+						out.close();
+					
+					}else{
+						FileWriter fstream = new FileWriter("out.sql",true);
+						BufferedWriter out = new BufferedWriter(fstream);
+						out.write("INSERT INTO db_legacy.transactions (cusip, reportdate, manager_number, typecode, netchange, sharesheld)"+
+						" VALUES ('" +
+						tList.get(i).cusip.replace("'", "''")+"', '" +
+						dateFormat.format(tList.get(i).reportdate)+"', '" +
+						tList.get(i).manager_number+"', '" +
+						tList.get(i).typecode.replace("'", "''")+"', '" +
+						tList.get(i).netChange+"', '" +
+						tList.get(i).sharesheld+"') " +
+								"ON DUPLICATE KEY UPDATE sharesheld='"+tList.get(i).sharesheld+"';\n");
+						out.close();
+					}
 					
 //					pstmt = conn.prepareStatement("INSERT INTO db_legacy.transactions (cusip, reportdate, manager_number, typecode, netchange, sharesheld)"
 //							+ " VALUES (?, ?, ?, ?, ?, ?);");

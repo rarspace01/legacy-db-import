@@ -14,7 +14,7 @@ import de.hamann.legacydataimport.FW;
 import de.hamann.legacydataimport.ImportController;
 import de.hamann.legacydataimport.data.DataHandlerTransactions;
 
-public class ModelHandlerTransactions {
+public class ModelHandlerBigTransactions {
 
 	private String fullPath_="";
 	
@@ -33,20 +33,13 @@ public class ModelHandlerTransactions {
 			  //Read File Line By Line
 			  
 			  Transactions tmpTransaction1;
-			  Transactions tmpTransaction2;
 			  
 			  while ((strLine = br.readLine()) != null)   {
 				  tmpTransaction1=null;
-				  tmpTransaction2=null;
 				  
 				  tmpTransaction1=new Transactions();
 				  
 				  tImport_Basic(tmpTransaction1,strLine);
-				  
-				  if(ImportController.getYear(fullPath_)==2004&&ImportController.getQuarterShort(fullPath_)==3){
-					  tImport_Basic(tmpTransaction2, strLine.substring(25));
-					  tList.add(tmpTransaction2);
-				  }
 				  
 				  tList.add(tmpTransaction1);
 				  
@@ -73,10 +66,13 @@ public class ModelHandlerTransactions {
 		if(FW.getPos(sWorkString, 9, 13).trim().length()>0&&FW.getPos(sWorkString, 9, 13).trim().matches("[0-9]*")){
 			tmpT.manager_number=Integer.parseInt(FW.getPos(sWorkString, 9, 13).trim());
 		}
-		tmpT.typecode=FW.getPos(sWorkString, 14, 14).trim();
 		
-		if(FW.getPos(sWorkString, 15, 25).trim().length()>0&&FW.getPos(sWorkString, 15, 25).trim().matches("[\\-]?[0-9]+*")){
-			tmpT.netChange=Long.parseLong(FW.getPos(sWorkString, 15, 25).trim());
+		if(FW.getPos(sWorkString, 14, 24).trim().length()>0&&FW.getPos(sWorkString, 14, 24).trim().matches("[0-9]*")){
+			tmpT.sharesheld=Integer.parseInt(FW.getPos(sWorkString, 14, 24).trim());
+		}
+		
+		if(FW.getPos(sWorkString, 25, 35).trim().length()>0&&FW.getPos(sWorkString, 25, 35).trim().matches("[\\-]?[0-9]+*")){
+			tmpT.netChange=Long.parseLong(FW.getPos(sWorkString, 25, 35).trim());
 		}
 		
 		SimpleDateFormat reportDateFormatCustom=new SimpleDateFormat("dd.MM.yyyy");
