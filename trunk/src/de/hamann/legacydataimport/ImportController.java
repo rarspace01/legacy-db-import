@@ -1,5 +1,6 @@
 package de.hamann.legacydataimport;
 
+import de.hamann.legacydataimport.model.ModelHandlerBigTransactions;
 import de.hamann.legacydataimport.model.ModelHandlerManager;
 import de.hamann.legacydataimport.model.ModelHandlerPortfolioHolding;
 import de.hamann.legacydataimport.model.ModelHandlerStocks;
@@ -40,9 +41,9 @@ public class ImportController {
 							//DatabaseThreadHandler.getInstance().addTransactions(currentFile);
 							new ModelHandlerTransactions().importFile(currentFile);
 							break;
-				case 346: 	System.out.println(" - T");
+				case 346: 	System.out.println(" - TBig");
 							//DatabaseThreadHandler.getInstance().addTransactions(currentFile);
-							new ModelHandlerTransactions().importFile(currentFile);
+							new ModelHandlerBigTransactions().importFile(currentFile);
 							break;
 				default:	System.out.println("no File");
 							break;
