@@ -71,7 +71,7 @@ public class ModelHandlerBigTransactions {
 			tmpT.sharesheld=Integer.parseInt(FW.getPos(sWorkString, 14, 24).trim());
 		}
 		
-		if(FW.getPos(sWorkString, 25, 35).trim().length()>0&&FW.getPos(sWorkString, 25, 35).trim().matches("[\\-]?[0-9]+*")){
+		if(FW.getPos(sWorkString, 25, 35).trim().length()>0&&FW.getPos(sWorkString, 25, 35).trim().matches("[\\-]?[0-9]+")){
 			tmpT.netChange=Long.parseLong(FW.getPos(sWorkString, 25, 35).trim());
 		}
 		

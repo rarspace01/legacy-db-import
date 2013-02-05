@@ -75,7 +75,7 @@ public class ModelHandlerTransactions {
 		}
 		tmpT.typecode=FW.getPos(sWorkString, 14, 14).trim();
 		
-		if(FW.getPos(sWorkString, 15, 25).trim().length()>0&&FW.getPos(sWorkString, 15, 25).trim().matches("[\\-]?[0-9]+*")){
+		if(FW.getPos(sWorkString, 15, 25).trim().length()>0&&FW.getPos(sWorkString, 15, 25).trim().matches("[\\-]?[0-9]+")){
 			tmpT.netChange=Long.parseLong(FW.getPos(sWorkString, 15, 25).trim());
 		}
 		
