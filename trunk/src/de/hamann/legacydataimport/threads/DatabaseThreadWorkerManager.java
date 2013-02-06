@@ -26,7 +26,7 @@ public class DatabaseThreadWorkerManager implements Runnable {
 		
 		System.out.println("[ThreadM] got Managers: "+ manager.size());
 		
-		new DataHandlerManager().saveManagers(manager);
+		new DataHandlerManager().saveManagers(manager,"");
 		
 		System.out.println("Finished Manager-Thread after ["+(System.currentTimeMillis()-start)+"]ms - Speed:"+((System.currentTimeMillis()-start)/(manager.size()))+"ms/statement");
 		

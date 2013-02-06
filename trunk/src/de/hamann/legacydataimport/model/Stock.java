@@ -5,16 +5,16 @@ import java.util.Date;
 
 public class Stock {
 
-	public String cusip;
-	public String name;
-	public String tickersymbol;
-	public String extendedtickersymbol;
+	public String cusip="";
+	public String name="";
+	public String tickersymbol="";
+	public String extendedtickersymbol="";
 	
-	public String exchangecode;
-	public String stockclasscode;
-	public String stockclassdescr;
+	public String exchangecode="";
+	public String stockclasscode="";
+	public String stockclassdescr="";
 	
-	public String industrycode;
+	public String industrycode="";
 	
 	public long sharesoustanding=0;
 	public long sharesoustanding_eoq=0;

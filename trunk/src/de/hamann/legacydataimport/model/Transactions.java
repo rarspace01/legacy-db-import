@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class Transactions {
 
-	public String cusip;
+	public String cusip="";
 	public int manager_number;
-	public String typecode;
+	public String typecode="";
 	public long netChange;
 	public long sharesheld;
 	public Date reportdate;
