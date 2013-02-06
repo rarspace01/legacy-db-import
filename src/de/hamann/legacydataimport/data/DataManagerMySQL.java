@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import de.hamann.legacydataimport.DHL;
+
 
 /**Die Klasse DataManager dient zum Verwalten der Verbindungen mit der Datenbank*/
 public class DataManagerMySQL {
@@ -25,12 +27,11 @@ public class DataManagerMySQL {
                         stmt = conn.createStatement();
                         
                 } catch (SQLException e) {
-                        
-                        e.printStackTrace();
-                        //HelperClass.err(e);
+					DHL.print("[MySQL]Exception");
+					DHL.print(e.getMessage());
                 } catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+                	DHL.print("[MySQL]Exception");
+					DHL.print(e.getMessage());
 				}
         }
 

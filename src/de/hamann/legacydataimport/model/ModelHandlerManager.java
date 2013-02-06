@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import de.hamann.legacydataimport.DHL;
 import de.hamann.legacydataimport.FW;
 import de.hamann.legacydataimport.ImportController;
 import de.hamann.legacydataimport.data.DataHandlerManager;
@@ -58,7 +59,8 @@ public class ModelHandlerManager {
 			  //Close the input stream
 			  in.close();
 			    }catch (Exception e){//Catch exception if any
-			  System.err.println("Error: " + e.getMessage());
+                	DHL.print("[MHM]Exception");
+					DHL.print(e.getMessage());
 			  }
 		new DataHandlerManager().saveManagers(managerList,fullPath_);
 		//return managerList;
@@ -95,8 +97,8 @@ public class ModelHandlerManager {
 			}
 				
 		} catch (ParseException e) {
-			System.out.println("ERROR on ["+sLine+"]");
-			e.printStackTrace();
+        	DHL.print("[MHM]Exception - on ["+sLine+"]");
+			DHL.print(e.getMessage());
 		}
 		
 		// only if is available
@@ -113,9 +115,8 @@ public class ModelHandlerManager {
 			try {
 				tmpManager.priorreportdate=reportDateFormat.parse(sWorkString);
 			} catch (ParseException e) {
-				System.out.println("ERROR ON:\n"+sLine);
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				DHL.print("[MHM]Exception - on ["+sLine+"]");
+				DHL.print(e.getMessage());
 			}
 		}
 	}

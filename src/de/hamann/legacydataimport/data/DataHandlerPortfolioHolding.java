@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import de.hamann.legacydataimport.Config;
+import de.hamann.legacydataimport.DHL;
 import de.hamann.legacydataimport.ImportController;
 import de.hamann.legacydataimport.model.PortfolioHolding;
 
@@ -14,14 +15,14 @@ public class DataHandlerPortfolioHolding  {
 	
 	public void savephs(List<PortfolioHolding> phList, String fullPath_){
 		
-		String outputString="";
+		String outputString="out/";
 		
 		switch(Config.depthLevel){
-		case 1:		outputString="ph";
+		case 1:		outputString+="ph";
 					break;
-		case 2:		outputString="ph_"+ImportController.getYear(fullPath_)+"_"+ImportController.getQuarterShort(fullPath_);
+		case 2:		outputString+="ph_"+ImportController.getYear(fullPath_)+"_"+ImportController.getQuarterShort(fullPath_);
 					break;
-		default:	outputString="out";
+		default:	outputString+="out";
 					break;
 		}
 		
@@ -83,7 +84,8 @@ public class DataHandlerPortfolioHolding  {
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				DHL.print("[PH]Exception");
+				DHL.print(e.getMessage());
 			}
 			
 			}

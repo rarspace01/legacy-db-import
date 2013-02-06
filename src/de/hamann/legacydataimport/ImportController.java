@@ -5,7 +5,6 @@ import de.hamann.legacydataimport.model.ModelHandlerManager;
 import de.hamann.legacydataimport.model.ModelHandlerPortfolioHolding;
 import de.hamann.legacydataimport.model.ModelHandlerStocks;
 import de.hamann.legacydataimport.model.ModelHandlerTransactions;
-import de.hamann.legacydataimport.threads.DatabaseThreadHandler;
 
 public class ImportController {
 
@@ -19,33 +18,32 @@ public class ImportController {
 		int iCur=1;
 		
 		while((currentFile=localIndex.getNextFile())!=null){
-			System.out.print("["+iCur+"/"+iMax+"] - ["+currentFile+"]");
 			//updateProgress((iCur/iMax));
 			if(isValidFileName(currentFile)){
-				//System.out.println(getFilename(currentFile)+" - "+getYear(currentFile)+" - "+getQuarter(currentFile));
+				//DHL.print(getFilename(currentFile)+" - "+getYear(currentFile)+" - "+getQuarter(currentFile));
 				switch(getFileType(currentFile)){
-				case 341: 	System.out.println(" - M");
+				case 341: 	DHL.print("["+iCur+"/"+iMax+"] - ["+currentFile+"]"+" - M");
 							//DatabaseThreadHandler.getInstance().addManagers(new ModelHandlerManager().importFile(currentFile));
 							new ModelHandlerManager().importFile(currentFile);
 							break;
-				case 342:	System.out.println(" - S"); 
+				case 342:	DHL.print("["+iCur+"/"+iMax+"] - ["+currentFile+"]"+" - S"); 
 							//DatabaseThreadHandler.getInstance().addStocks(new ModelHandlerStocks().importFile(currentFile));
 							new ModelHandlerStocks().importFile(currentFile);
 							break;
 				case 343: 	
-							System.out.println(" - P");
+							DHL.print("["+iCur+"/"+iMax+"] - ["+currentFile+"]"+" - P");
 							//DatabaseThreadHandler.getInstance().addphs(currentFile);
 							new ModelHandlerPortfolioHolding().importFile(currentFile);
 							break;
-				case 344: 	System.out.println(" - T");
+				case 344: 	DHL.print("["+iCur+"/"+iMax+"] - ["+currentFile+"]"+" - T");
 							//DatabaseThreadHandler.getInstance().addTransactions(currentFile);
 							new ModelHandlerTransactions().importFile(currentFile);
 							break;
-				case 346: 	System.out.println(" - TBig");
+				case 346: 	DHL.print("["+iCur+"/"+iMax+"] - ["+currentFile+"]"+" - TBig");
 							//DatabaseThreadHandler.getInstance().addTransactions(currentFile);
 							new ModelHandlerBigTransactions().importFile(currentFile);
 							break;
-				default:	System.out.println("no File");
+				default:	DHL.print("no File");
 							break;
 				}
 				
@@ -53,15 +51,15 @@ public class ImportController {
 			iCur++;
 		}
 		
-		while(DatabaseThreadHandler.getInstance().getiWorkingThreads()>0){
-			System.out.println("Running Threads: "+DatabaseThreadHandler.getInstance().getiWorkingThreads());
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+//		while(DatabaseThreadHandler.getInstance().getiWorkingThreads()>0){
+//			DHL.print("Running Threads: "+DatabaseThreadHandler.getInstance().getiWorkingThreads());
+//			try {
+//				Thread.sleep(500);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
 		
 	}
 

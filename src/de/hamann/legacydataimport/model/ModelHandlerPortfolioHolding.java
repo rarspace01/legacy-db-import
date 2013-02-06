@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import de.hamann.legacydataimport.DHL;
 import de.hamann.legacydataimport.FW;
 import de.hamann.legacydataimport.ImportController;
 import de.hamann.legacydataimport.data.DataHandlerPortfolioHolding;
@@ -71,8 +72,8 @@ public class ModelHandlerPortfolioHolding {
 			  //Close the input stream
 			  in.close();
 			    }catch (Exception e){//Catch exception if any
-			    	e.printStackTrace();
-			  System.err.println("Error: " + e.getMessage());
+			    	DHL.print("[MHPH]Exception");
+					DHL.print(e.getMessage());
 			  }
 	}
 	
@@ -101,8 +102,8 @@ public class ModelHandlerPortfolioHolding {
 				
 				tmpPh.reportdate= reportDateFormatCustom.parse(sDate);
 		} catch (ParseException e) {
-			System.out.println("ERROR on ["+sLine+"]");
-			e.printStackTrace();
+			DHL.print("[MHPH]Exception - on ["+sLine+"]");
+			DHL.print(e.getMessage());
 		}
 		
 		}
