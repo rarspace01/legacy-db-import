@@ -65,7 +65,7 @@ public class ModelHandlerPortfolioHolding {
 				  
 				  phList.add(tmpPortfolioHolding1);
 				  
-				  dhph.savephs(phList);
+				  dhph.savephs(phList,fullPath_);
 				  phList.clear();
 			  }
 			  //Close the input stream

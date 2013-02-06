@@ -6,11 +6,30 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import de.hamann.legacydataimport.Config;
+import de.hamann.legacydataimport.ImportController;
 import de.hamann.legacydataimport.model.Transactions;
 
 public class DataHandlerTransactions  {
 	
-	public void saveTs(List<Transactions> tList){
+	public void saveTs(List<Transactions> tList, String fullPath_){
+		
+		String outputString="";
+		
+		switch(Config.depthLevel){
+		case 1:		outputString="transaction";
+					break;
+		case 2:		outputString="transaction_"+ImportController.getYear(fullPath_)+"_"+ImportController.getQuarterShort(fullPath_);
+					break;
+		default:	outputString="out";
+					break;
+		}
+		
+		if(Config.isCSV){
+			outputString+=".csv";
+		}else{
+			outputString+=".sql";
+		}
 		
 		SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -22,30 +41,60 @@ public class DataHandlerTransactions  {
 					
 					if(tList.get(i).sharesheld==0){
 					
-						FileWriter fstream = new FileWriter("out.sql",true);
+						FileWriter fstream = new FileWriter(outputString,true);
 						BufferedWriter out = new BufferedWriter(fstream);
-						out.write("INSERT INTO db_legacy.transactions (cusip, reportdate, manager_number, typecode, netchange, sharesheld)"+
-						" VALUES ('" +
-						tList.get(i).cusip.replace("'", "''")+"', '" +
-						dateFormat.format(tList.get(i).reportdate)+"', '" +
-						tList.get(i).manager_number+"', '" +
-						tList.get(i).typecode.replace("'", "''")+"', '" +
-						tList.get(i).netChange+"', '" +
-						tList.get(i).sharesheld+"');\n");
+						
+						if(Config.isCSV){
+							
+							out.write(tList.get(i).cusip+";" +
+									dateFormat.format(tList.get(i).reportdate)+";" +
+									tList.get(i).manager_number+";" +
+									tList.get(i).typecode+";" +
+									tList.get(i).netChange+";" +
+									tList.get(i).sharesheld+";\n");
+
+							
+						}else{
+							
+							out.write("INSERT INTO db_legacy.transactions (cusip, reportdate, manager_number, typecode, netchange, sharesheld)"+
+									" VALUES ('" +
+									tList.get(i).cusip.replace("'", "''")+"', '" +
+									dateFormat.format(tList.get(i).reportdate)+"', '" +
+									tList.get(i).manager_number+"', '" +
+									tList.get(i).typecode.replace("'", "''")+"', '" +
+									tList.get(i).netChange+"', '" +
+									tList.get(i).sharesheld+"');\n");
+						}
+						
 						out.close();
 					
 					}else{
-						FileWriter fstream = new FileWriter("out.sql",true);
+						FileWriter fstream = new FileWriter(outputString,true);
 						BufferedWriter out = new BufferedWriter(fstream);
-						out.write("INSERT INTO db_legacy.transactions (cusip, reportdate, manager_number, typecode, netchange, sharesheld)"+
-						" VALUES ('" +
-						tList.get(i).cusip.replace("'", "''")+"', '" +
-						dateFormat.format(tList.get(i).reportdate)+"', '" +
-						tList.get(i).manager_number+"', '" +
-						tList.get(i).typecode.replace("'", "''")+"', '" +
-						tList.get(i).netChange+"', '" +
-						tList.get(i).sharesheld+"') " +
-								"ON DUPLICATE KEY UPDATE sharesheld='"+tList.get(i).sharesheld+"';\n");
+						
+						if(Config.isCSV){
+							
+							out.write(tList.get(i).cusip+";" +
+									dateFormat.format(tList.get(i).reportdate)+";" +
+									tList.get(i).manager_number+";" +
+									tList.get(i).typecode+";" +
+									tList.get(i).netChange+";" +
+									tList.get(i).sharesheld+";\n");
+							
+						}else{
+							
+							out.write("INSERT INTO db_legacy.transactions (cusip, reportdate, manager_number, typecode, netchange, sharesheld)"+
+									" VALUES ('" +
+									tList.get(i).cusip.replace("'", "''")+"', '" +
+									dateFormat.format(tList.get(i).reportdate)+"', '" +
+									tList.get(i).manager_number+"', '" +
+									tList.get(i).typecode.replace("'", "''")+"', '" +
+									tList.get(i).netChange+"', '" +
+									tList.get(i).sharesheld+"') " +
+									"ON DUPLICATE KEY UPDATE sharesheld='"+tList.get(i).sharesheld+"';\n");
+						}
+						
+						
 						out.close();
 					}
 					
