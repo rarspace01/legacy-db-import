@@ -34,11 +34,11 @@ public class ModelHandlerPortfolioHolding {
 			  //Read File Line By Line
 			  
 			  PortfolioHolding tmpPortfolioHolding1;
-			  PortfolioHolding tmpPortfolioHolding2;
+//			  PortfolioHolding tmpPortfolioHolding2;
 			  
 			  while ((strLine = br.readLine()) != null)   {
 				  tmpPortfolioHolding1=null;
-				  tmpPortfolioHolding2=null;
+//				  tmpPortfolioHolding2=null;
 				  
 				  tmpPortfolioHolding1=new PortfolioHolding();
 				  
