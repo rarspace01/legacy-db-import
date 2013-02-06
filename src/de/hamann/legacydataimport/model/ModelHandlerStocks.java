@@ -84,7 +84,7 @@ public class ModelHandlerStocks {
 			    	e.printStackTrace();
 			  System.err.println("Error: " + e.getMessage());
 			  }
-		new DataHandlerStocks().saveStocks(stockList);
+		new DataHandlerStocks().saveStocks(stockList,fullPath_);
 		//return stockList;
 	}
 	

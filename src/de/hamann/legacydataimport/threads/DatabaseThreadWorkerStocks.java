@@ -26,7 +26,7 @@ public class DatabaseThreadWorkerStocks implements Runnable {
 		
 		System.out.println("[ThreadM] got Stocks: "+ stocks.size());
 		
-		new DataHandlerStocks().saveStocks(stocks);
+		new DataHandlerStocks().saveStocks(stocks,"");
 		
 		System.out.println("Finished Stocks-Thread after ["+(System.currentTimeMillis()-start)+"]ms - Speed:"+((System.currentTimeMillis()-start)/(stocks.size()))+"ms/statement");
 		
