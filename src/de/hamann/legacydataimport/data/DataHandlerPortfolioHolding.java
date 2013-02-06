@@ -6,11 +6,31 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import de.hamann.legacydataimport.Config;
+import de.hamann.legacydataimport.ImportController;
 import de.hamann.legacydataimport.model.PortfolioHolding;
 
 public class DataHandlerPortfolioHolding  {
 	
-	public void savephs(List<PortfolioHolding> phList){
+	public void savephs(List<PortfolioHolding> phList, String fullPath_){
+		
+		String outputString="";
+		
+		switch(Config.depthLevel){
+		case 1:		outputString="ph";
+					break;
+		case 2:		outputString="ph_"+ImportController.getYear(fullPath_)+"_"+ImportController.getQuarterShort(fullPath_);
+					break;
+		default:	outputString="out";
+					break;
+		}
+		
+		if(Config.isCSV){
+			outputString+=".csv";
+		}else{
+			outputString+=".sql";
+		}
+		
 		SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
 //		Connection conn= DataManagerMySQLSingleton.getInstance().getConnection();
 //		PreparedStatement pstmt = null;
@@ -18,18 +38,35 @@ public class DataHandlerPortfolioHolding  {
 			for(int i=0;i<phList.size();i++){
 				try {
 					
-					FileWriter fstream = new FileWriter("out.sql",true);
+					FileWriter fstream = new FileWriter(outputString,true);
 					BufferedWriter out = new BufferedWriter(fstream);
-					out.write("INSERT INTO db_legacy.portfolioholding (cusip, reportdate, manager_number, typecode, sharehold_eoq, solevotingauthsharesheld, sharedvotingauthsharesheld, novotingauthsharesheld)"
-							+ " VALUES ('" +
-						phList.get(i).cusip.replace("'", "''")+"', '" +
-						dateFormat.format(phList.get(i).reportdate)+"', '" +
-						phList.get(i).manager_number+"', '" +
-						phList.get(i).typecode.replace("'", "''")+"', '" +
-						phList.get(i).sharehold_eoq+"', '" +
-						phList.get(i).solevotingauthsharesheld+"', '" +
-						phList.get(i).sharedvotingauthsharesheld+"', '" +
-						phList.get(i).novotingauthsharesheld+"');\n");
+					
+					if(Config.isCSV){
+					
+						out.write(phList.get(i).cusip+";" +
+								dateFormat.format(phList.get(i).reportdate)+";" +
+								phList.get(i).manager_number+";" +
+								phList.get(i).typecode+";" +
+								phList.get(i).sharehold_eoq+";" +
+								phList.get(i).solevotingauthsharesheld+";" +
+								phList.get(i).sharedvotingauthsharesheld+";" +
+								phList.get(i).novotingauthsharesheld+";\n");
+						
+					}else{
+						
+						out.write("INSERT INTO db_legacy.portfolioholding (cusip, reportdate, manager_number, typecode, sharehold_eoq, solevotingauthsharesheld, sharedvotingauthsharesheld, novotingauthsharesheld)"
+								+ " VALUES ('" +
+								phList.get(i).cusip.replace("'", "''")+"', '" +
+								dateFormat.format(phList.get(i).reportdate)+"', '" +
+								phList.get(i).manager_number+"', '" +
+								phList.get(i).typecode.replace("'", "''")+"', '" +
+								phList.get(i).sharehold_eoq+"', '" +
+								phList.get(i).solevotingauthsharesheld+"', '" +
+								phList.get(i).sharedvotingauthsharesheld+"', '" +
+								phList.get(i).novotingauthsharesheld+"');\n");
+						
+					}
+					
 					out.close();
 					
 //					pstmt = conn.prepareStatement("INSERT INTO db_legacy.portfolioholding (cusip, reportdate, manager_number, typecode, sharehold_eoq, solevotingauthsharesheld, sharedvotingauthsharesheld, novotingauthsharesheld)"

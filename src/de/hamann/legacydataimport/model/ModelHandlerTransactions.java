@@ -51,7 +51,7 @@ public class ModelHandlerTransactions {
 				  tList.add(tmpTransaction1);
 				  
 				  //directly put to database
-				  dht.saveTs(tList);
+				  dht.saveTs(tList,fullPath_);
 				  tList.clear();
 				  
 			  }

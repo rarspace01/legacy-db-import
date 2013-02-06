@@ -16,7 +16,7 @@ public class init {
 				if(args[i].contains("-level")){
 					tmpLevel=args[i].substring(args[i].indexOf("-level")+"-level".length());
 					Config.depthLevel=Integer.parseInt(tmpLevel);
-					System.out.println("File-Level active:"+Config.depthLevel);
+					System.out.println("FileDepth-Level active: "+Config.depthLevel);
 				}
 			}
 		}
