@@ -46,12 +46,12 @@ public class DataHandlerManager  {
 						
 						if(Config.isCSV){
 							out.write(objectList.get(i).number+";" +
-									objectList.get(i).name.replace("'", "''")+";" +
+									objectList.get(i).name+";" +
 									objectList.get(i).type+";" +
 									dateFormat.format(objectList.get(i).reportdate)+";" +
-									objectList.get(i).permanentkey.replace("'", "''")+";" +
+									objectList.get(i).permanentkey+";" +
 									dateFormat.format(objectList.get(i).priorreportdate)+";" +
-									objectList.get(i).country.replace("'", "''")+";\n");						
+									objectList.get(i).country+";\n");						
 							
 						}else{
 							
@@ -85,11 +85,11 @@ public class DataHandlerManager  {
 						if(Config.isCSV){
 							
 							out.write(objectList.get(i).number+";" +
-									objectList.get(i).name.replace("'", "''")+";" +
+									objectList.get(i).name+";" +
 									objectList.get(i).type+";" +
 									dateFormat.format(objectList.get(i).reportdate)+";" +
-									objectList.get(i).permanentkey.replace("'", "''")+";" +
-									objectList.get(i).country.replace("'", "''")+";\n");
+									objectList.get(i).permanentkey+";;" +
+									objectList.get(i).country+";\n");
 							
 						}else{
 							

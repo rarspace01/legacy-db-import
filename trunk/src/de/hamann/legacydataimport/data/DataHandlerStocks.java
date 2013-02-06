@@ -6,11 +6,30 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import de.hamann.legacydataimport.Config;
+import de.hamann.legacydataimport.ImportController;
 import de.hamann.legacydataimport.model.Stock;
 
 public class DataHandlerStocks  {
 	
-	public void saveStocks(List<Stock> stockList){
+	public void saveStocks(List<Stock> stockList, String fullPath_){
+		
+		String outputString="";
+		
+		switch(Config.depthLevel){
+		case 1:		outputString="stock";
+					break;
+		case 2:		outputString="stock_"+ImportController.getYear(fullPath_)+"_"+ImportController.getQuarterShort(fullPath_);
+					break;
+		default:	outputString="out";
+					break;
+		}
+		
+		if(Config.isCSV){
+			outputString+=".csv";
+		}else{
+			outputString+=".sql";
+		}
 		
 		SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -21,21 +40,42 @@ public class DataHandlerStocks  {
 			for(int i=0;i<stockList.size();i++){
 				try {
 					
-					FileWriter fstream = new FileWriter("out.sql",true);
+					FileWriter fstream = new FileWriter(outputString,true);
 					BufferedWriter out = new BufferedWriter(fstream);
-					out.write("INSERT INTO db_legacy.stocks (cusip, name, tickersymbol, extendedtickersymbol, exchangecode, stockclasscode, stockclassdescr, industrycode, sharesoustanding, sharesoustanding_eoq, shareprice_eoq, reportdate)"+
-					" VALUES ('"+stockList.get(i).cusip.replace("'", "''")+"'," +
-					" '"+stockList.get(i).name.replace("'", "''")+"'," +
-					" '"+stockList.get(i).tickersymbol.replace("'", "''")+"'," +
-					" '"+stockList.get(i).extendedtickersymbol.replace("'", "''")+"'," +
-					" '"+stockList.get(i).exchangecode.replace("'", "''")+"'," +
-					" '"+stockList.get(i).stockclasscode.replace("'", "''")+"'," +
-					" '"+stockList.get(i).stockclassdescr.replace("'", "''")+"'," +
-					" '"+stockList.get(i).industrycode.replace("'", "''")+"'," +
-					" '"+stockList.get(i).sharesoustanding+"'," +
-					" '"+stockList.get(i).sharesoustanding_eoq+"'," +
-					" '"+stockList.get(i).shareprice_eoq+"'," +
-					" '"+dateFormat.format(stockList.get(i).reportdate)+"');\n");
+					
+					if(Config.isCSV){
+						
+						out.write(stockList.get(i).cusip+";" +
+								stockList.get(i).name+";" +
+								stockList.get(i).tickersymbol+";" +
+								stockList.get(i).extendedtickersymbol+";" +
+								stockList.get(i).exchangecode+";" +
+								stockList.get(i).stockclasscode+";" +
+								stockList.get(i).stockclassdescr+";" +
+								stockList.get(i).industrycode+";" +
+								stockList.get(i).sharesoustanding+";" +
+								stockList.get(i).sharesoustanding_eoq+";" +
+								stockList.get(i).shareprice_eoq+";" +
+								dateFormat.format(stockList.get(i).reportdate)+";\n");
+						
+					}else{
+						
+						out.write("INSERT INTO db_legacy.stocks (cusip, name, tickersymbol, extendedtickersymbol, exchangecode, stockclasscode, stockclassdescr, industrycode, sharesoustanding, sharesoustanding_eoq, shareprice_eoq, reportdate)"+
+								" VALUES ('"+stockList.get(i).cusip.replace("'", "''")+"'," +
+								" '"+stockList.get(i).name.replace("'", "''")+"'," +
+								" '"+stockList.get(i).tickersymbol.replace("'", "''")+"'," +
+								" '"+stockList.get(i).extendedtickersymbol.replace("'", "''")+"'," +
+								" '"+stockList.get(i).exchangecode.replace("'", "''")+"'," +
+								" '"+stockList.get(i).stockclasscode.replace("'", "''")+"'," +
+								" '"+stockList.get(i).stockclassdescr.replace("'", "''")+"'," +
+								" '"+stockList.get(i).industrycode.replace("'", "''")+"'," +
+								" '"+stockList.get(i).sharesoustanding+"'," +
+								" '"+stockList.get(i).sharesoustanding_eoq+"'," +
+								" '"+stockList.get(i).shareprice_eoq+"'," +
+								" '"+dateFormat.format(stockList.get(i).reportdate)+"');\n");
+					}
+					
+					
 					out.close();
 					
 //					pstmt = conn.prepareStatement("INSERT INTO db_legacy.stocks (cusip, name, tickersymbol, extendedtickersymbol, exchangecode, stockclasscode, stockclassdescr, industrycode, sharesoustanding, sharesoustanding_eoq, shareprice_eoq, reportdate)"
