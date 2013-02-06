@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import de.hamann.legacydataimport.Config;
+import de.hamann.legacydataimport.DHL;
 import de.hamann.legacydataimport.ImportController;
 import de.hamann.legacydataimport.model.Transactions;
 
@@ -14,14 +15,14 @@ public class DataHandlerTransactions  {
 	
 	public void saveTs(List<Transactions> tList, String fullPath_){
 		
-		String outputString="";
+		String outputString="out/";
 		
 		switch(Config.depthLevel){
-		case 1:		outputString="transaction";
+		case 1:		outputString+="transaction";
 					break;
-		case 2:		outputString="transaction_"+ImportController.getYear(fullPath_)+"_"+ImportController.getQuarterShort(fullPath_);
+		case 2:		outputString+="transaction_"+ImportController.getYear(fullPath_)+"_"+ImportController.getQuarterShort(fullPath_);
 					break;
-		default:	outputString="out";
+		default:	outputString+="out";
 					break;
 		}
 		
@@ -110,10 +111,11 @@ public class DataHandlerTransactions  {
 				
 					} catch (IOException ioe) {
 						// TODO Auto-generated catch block
-						ioe.printStackTrace();
+						DHL.print("[DHT]Exception");
+						DHL.print(ioe.getMessage());
 					} catch (Exception e){
-						System.out.println("Exception on dump to file");
-						e.printStackTrace();
+						DHL.print("[DHT]Exception");
+						DHL.print(e.getMessage());
 					}
 				
 			}
