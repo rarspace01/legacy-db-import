@@ -44,10 +44,10 @@ public class ModelHandlerPortfolioHolding {
 				  
 				  phImport_Basic(tmpPortfolioHolding1,strLine);
 				  
-				  if(ImportController.getYear(fullPath_)==2004&&ImportController.getQuarterShort(fullPath_)==3){
-					  phImport_Basic(tmpPortfolioHolding2, strLine.substring(25));
-					  phList.add(tmpPortfolioHolding2);
-				  }else{
+//				  if(ImportController.getYear(fullPath_)==2000&&ImportController.getQuarterShort(fullPath_)==3){
+//					  phImport_Basic(tmpPortfolioHolding2, strLine.substring(25));
+//					  phList.add(tmpPortfolioHolding2);
+//				  }else{
 					  //import adv
 					  
 					  if(FW.getPos(strLine, 26, 36).trim().length()>0&&FW.getPos(strLine, 26, 36).trim().matches("[0-9]*")){
@@ -62,7 +62,7 @@ public class ModelHandlerPortfolioHolding {
 						  tmpPortfolioHolding1.novotingauthsharesheld=Long.parseLong(FW.getPos(strLine, 48, 58).trim());
 					  }
 					  
-				  }
+//				  }
 				  
 				  phList.add(tmpPortfolioHolding1);
 				  
@@ -74,38 +74,41 @@ public class ModelHandlerPortfolioHolding {
 			    }catch (Exception e){//Catch exception if any
 			    	DHL.print("[MHPH]Exception");
 					DHL.print(e.getMessage());
+					e.printStackTrace();
 			  }
 	}
 	
 	
 	public void phImport_Basic(PortfolioHolding tmpPh, String sLine){
-		String sWorkString=sLine;
-		
-		tmpPh.cusip=FW.getPos(sWorkString, 1, 8).trim();
-		
-		if(FW.getPos(sWorkString, 9, 13).trim().length()>0&&FW.getPos(sWorkString, 9, 13).trim().matches("[0-9]*")){
-			tmpPh.manager_number=Integer.parseInt(FW.getPos(sWorkString, 9, 13).trim());
-		}
-		tmpPh.typecode=FW.getPos(sWorkString, 14, 14).trim();
-		
-		if(FW.getPos(sWorkString, 15, 25).trim().length()>0&&FW.getPos(sWorkString, 15, 25).trim().matches("[0-9]*")){
-			tmpPh.sharehold_eoq=Long.parseLong(FW.getPos(sWorkString, 15, 25).trim());
-		}
-		
-		SimpleDateFormat reportDateFormatCustom=new SimpleDateFormat("dd.MM.yyyy");
-		
-		try {
+		String sWorkString=""+sLine;
+		if(sWorkString!=null&&sWorkString.length()>0){
+			//System.out.println("L"+sWorkString.length());
+			tmpPh.cusip=FW.getPos(sWorkString, 1, 8).trim();
 			
-				Calendar cal=Calendar.getInstance();
-				cal.set(ImportController.getYear(fullPath_), (ImportController.getQuarterShort(fullPath_)-1), 1);
-				String sDate=cal.getActualMaximum(Calendar.DAY_OF_MONTH)+"."+(cal.get(Calendar.MONTH)+1)+"."+cal.get(Calendar.YEAR);
+			if(FW.getPos(sWorkString, 9, 13).trim().length()>0&&FW.getPos(sWorkString, 9, 13).trim().matches("[0-9]*")){
+				tmpPh.manager_number=Integer.parseInt(FW.getPos(sWorkString, 9, 13).trim());
+			}
+			tmpPh.typecode=FW.getPos(sWorkString, 14, 14).trim();
+			
+			if(FW.getPos(sWorkString, 15, 25).trim().length()>0&&FW.getPos(sWorkString, 15, 25).trim().matches("[0-9]*")){
+				tmpPh.sharehold_eoq=Long.parseLong(FW.getPos(sWorkString, 15, 25).trim());
+			}
+			
+			SimpleDateFormat reportDateFormatCustom=new SimpleDateFormat("dd.MM.yyyy");
+			
+			try {
 				
-				tmpPh.reportdate= reportDateFormatCustom.parse(sDate);
-		} catch (ParseException e) {
-			DHL.print("[MHPH]Exception - on ["+sLine+"]");
-			DHL.print(e.getMessage());
-		}
+					Calendar cal=Calendar.getInstance();
+					cal.set(ImportController.getYear(fullPath_), (ImportController.getQuarterShort(fullPath_)-1), 1);
+					String sDate=cal.getActualMaximum(Calendar.DAY_OF_MONTH)+"."+(cal.get(Calendar.MONTH)+1)+"."+cal.get(Calendar.YEAR);
+					
+					tmpPh.reportdate= reportDateFormatCustom.parse(sDate);
+			} catch (ParseException e) {
+				DHL.print("[MHPH]Exception - on ["+sLine+"]");
+				DHL.print(e.getMessage());
+				e.printStackTrace();
+			}
 		
 		}
-	
+	}
 }
