@@ -6,7 +6,7 @@ public class init {
 		
 		final String rev = "$Rev$";
 		
-		DHL.print("Parser started - rev."+rev);
+		DHL.print("Parser started - "+rev);
 		
 		String tmpLevel="";
 		
