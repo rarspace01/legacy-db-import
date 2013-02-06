@@ -6,11 +6,30 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import de.hamann.legacydataimport.Config;
+import de.hamann.legacydataimport.ImportController;
 import de.hamann.legacydataimport.model.Manager;
 
 public class DataHandlerManager  {
 	
-	public void saveManagers(List<Manager> objectList){
+	public void saveManagers(List<Manager> objectList, String fullPath_){
+		
+		String outputString="";
+		
+		switch(Config.depthLevel){
+		case 1:		outputString="manager";
+					break;
+		case 2:		outputString="manager_"+ImportController.getYear(fullPath_)+"_"+ImportController.getQuarterShort(fullPath_);
+					break;
+		default:	outputString="out";
+					break;
+		}
+		
+		if(Config.isCSV){
+			outputString+=".csv";
+		}else{
+			outputString+=".sql";
+		}
 		
 		SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -22,16 +41,30 @@ public class DataHandlerManager  {
 				try {
 					if(objectList.get(i).priorreportdate!=null){
 						
-						FileWriter fstream = new FileWriter("out.sql",true);
+						FileWriter fstream = new FileWriter(outputString,true);
 						BufferedWriter out = new BufferedWriter(fstream);
-						out.write("INSERT INTO db_legacy.manager (number, name, typecode, reportdate, permanentkey, prioreportdate, country)"
-								+ " VALUES ('"+objectList.get(i).number+"', '" +
-										objectList.get(i).name.replace("'", "''")+"', '" +
-										objectList.get(i).type+"', '" +
-										dateFormat.format(objectList.get(i).reportdate)+"', '" +
-										objectList.get(i).permanentkey.replace("'", "''")+"', '" +
-										dateFormat.format(objectList.get(i).priorreportdate)+"', '" +
-										objectList.get(i).country.replace("'", "''")+"');\n");
+						
+						if(Config.isCSV){
+							out.write(objectList.get(i).number+";" +
+									objectList.get(i).name.replace("'", "''")+";" +
+									objectList.get(i).type+";" +
+									dateFormat.format(objectList.get(i).reportdate)+";" +
+									objectList.get(i).permanentkey.replace("'", "''")+";" +
+									dateFormat.format(objectList.get(i).priorreportdate)+";" +
+									objectList.get(i).country.replace("'", "''")+";\n");						
+							
+						}else{
+							
+							out.write("INSERT INTO db_legacy.manager (number, name, typecode, reportdate, permanentkey, prioreportdate, country)"
+									+ " VALUES ('"+objectList.get(i).number+"', '" +
+									objectList.get(i).name.replace("'", "''")+"', '" +
+									objectList.get(i).type+"', '" +
+									dateFormat.format(objectList.get(i).reportdate)+"', '" +
+									objectList.get(i).permanentkey.replace("'", "''")+"', '" +
+									dateFormat.format(objectList.get(i).priorreportdate)+"', '" +
+									objectList.get(i).country.replace("'", "''")+"');\n");
+							
+						}
 						out.close();
 						
 //					pstmt = conn.prepareStatement("INSERT INTO db_legacy.manager (number, name, typecode, reportdate, permanentkey, prioreportdate, country)"
@@ -46,15 +79,29 @@ public class DataHandlerManager  {
 //						pstmt.execute();
 						
 					}else{
-						FileWriter fstream = new FileWriter("out.sql",true);
+						FileWriter fstream = new FileWriter(outputString,true);
 						BufferedWriter out = new BufferedWriter(fstream);
-						out.write("INSERT INTO db_legacy.manager (number, name, typecode, reportdate, permanentkey, country)"
-								+ " VALUES ('"+objectList.get(i).number+"', '" +
-										objectList.get(i).name.replace("'", "''")+"', '" +
-										objectList.get(i).type+"', '" +
-										dateFormat.format(objectList.get(i).reportdate)+"', '" +
-										objectList.get(i).permanentkey.replace("'", "''")+"', '" +
-										objectList.get(i).country.replace("'", "''")+"');\n");
+						
+						if(Config.isCSV){
+							
+							out.write(objectList.get(i).number+";" +
+									objectList.get(i).name.replace("'", "''")+";" +
+									objectList.get(i).type+";" +
+									dateFormat.format(objectList.get(i).reportdate)+";" +
+									objectList.get(i).permanentkey.replace("'", "''")+";" +
+									objectList.get(i).country.replace("'", "''")+";\n");
+							
+						}else{
+							
+							out.write("INSERT INTO db_legacy.manager (number, name, typecode, reportdate, permanentkey, country)"
+									+ " VALUES ('"+objectList.get(i).number+"', '" +
+									objectList.get(i).name.replace("'", "''")+"', '" +
+									objectList.get(i).type+"', '" +
+									dateFormat.format(objectList.get(i).reportdate)+"', '" +
+									objectList.get(i).permanentkey.replace("'", "''")+"', '" +
+									objectList.get(i).country.replace("'", "''")+"');\n");
+						}
+						
 						out.close();
 						
 //						pstmt = conn.prepareStatement("INSERT INTO db_legacy.manager (number, name, typecode, reportdate, permanentkey,  country)"

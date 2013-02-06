@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class PortfolioHolding {
 
-	public String cusip;
+	public String cusip="";
 	public Date reportdate;
 	public int manager_number;
-	public String typecode;
+	public String typecode="";
 	public long sharehold_eoq;
 	public long solevotingauthsharesheld;
 	public long sharedvotingauthsharesheld;

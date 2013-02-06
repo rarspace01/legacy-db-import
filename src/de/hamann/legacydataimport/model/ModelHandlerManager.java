@@ -60,7 +60,7 @@ public class ModelHandlerManager {
 			    }catch (Exception e){//Catch exception if any
 			  System.err.println("Error: " + e.getMessage());
 			  }
-		new DataHandlerManager().saveManagers(managerList);
+		new DataHandlerManager().saveManagers(managerList,fullPath_);
 		//return managerList;
 	}
 	

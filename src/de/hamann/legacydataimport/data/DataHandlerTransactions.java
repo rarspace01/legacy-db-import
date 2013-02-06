@@ -59,11 +59,14 @@ public class DataHandlerTransactions  {
 //						pstmt.setLong(6,tList.get(i).sharesheld);
 //						pstmt.execute();
 				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+					} catch (IOException ioe) {
+						// TODO Auto-generated catch block
+						ioe.printStackTrace();
+					} catch (Exception e){
+						System.out.println("Exception on dump to file");
+						e.printStackTrace();
+					}
+				
 			}
 			//pstmt.executeBatch();
 //			if(pstmt!=null){
