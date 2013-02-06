@@ -2,6 +2,10 @@ package de.hamann.legacydataimport;
 
 public class init {
 
+	/**
+	 * main method
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		
 		final String rev = "$Rev$";
