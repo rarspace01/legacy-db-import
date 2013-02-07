@@ -51,7 +51,7 @@ public class DataHandlerPortfolioHolding  {
 								phList.get(i).sharehold_eoq+";" +
 								phList.get(i).solevotingauthsharesheld+";" +
 								phList.get(i).sharedvotingauthsharesheld+";" +
-								phList.get(i).novotingauthsharesheld+";\n");
+								phList.get(i).novotingauthsharesheld+";\r\n");
 						
 					}else{
 						
@@ -64,7 +64,7 @@ public class DataHandlerPortfolioHolding  {
 								phList.get(i).sharehold_eoq+"', '" +
 								phList.get(i).solevotingauthsharesheld+"', '" +
 								phList.get(i).sharedvotingauthsharesheld+"', '" +
-								phList.get(i).novotingauthsharesheld+"');\n");
+								phList.get(i).novotingauthsharesheld+"');\r\n");
 						
 					}
 					

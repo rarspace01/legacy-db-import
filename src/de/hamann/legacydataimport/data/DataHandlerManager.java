@@ -52,7 +52,7 @@ public class DataHandlerManager  {
 									dateFormat.format(objectList.get(i).reportdate)+";" +
 									objectList.get(i).permanentkey+";" +
 									dateFormat.format(objectList.get(i).priorreportdate)+";" +
-									objectList.get(i).country+";\n");						
+									objectList.get(i).country+";\r\n");						
 							
 						}else{
 							
@@ -63,7 +63,7 @@ public class DataHandlerManager  {
 									dateFormat.format(objectList.get(i).reportdate)+"', '" +
 									objectList.get(i).permanentkey.replace("'", "''")+"', '" +
 									dateFormat.format(objectList.get(i).priorreportdate)+"', '" +
-									objectList.get(i).country.replace("'", "''")+"');\n");
+									objectList.get(i).country.replace("'", "''")+"');\r\n");
 							
 						}
 						out.close();
@@ -90,7 +90,7 @@ public class DataHandlerManager  {
 									objectList.get(i).type+";" +
 									dateFormat.format(objectList.get(i).reportdate)+";" +
 									objectList.get(i).permanentkey+";;" +
-									objectList.get(i).country+";\n");
+									objectList.get(i).country+";\r\n");
 							
 						}else{
 							
@@ -100,7 +100,7 @@ public class DataHandlerManager  {
 									objectList.get(i).type+"', '" +
 									dateFormat.format(objectList.get(i).reportdate)+"', '" +
 									objectList.get(i).permanentkey.replace("'", "''")+"', '" +
-									objectList.get(i).country.replace("'", "''")+"');\n");
+									objectList.get(i).country.replace("'", "''")+"');\r\n");
 						}
 						
 						out.close();

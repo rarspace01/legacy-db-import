@@ -2,11 +2,17 @@ package de.hamann.legacydataimport;
 
 import java.io.File;
 
+/**
+ * 
+ * @author denis
+ * @version 22
+ */
 public class init {
 
 	/**
 	 * main method
 	 * @param args
+	 * @
 	 */
 	public static void main(String[] args) {
 		

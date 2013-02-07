@@ -15,7 +15,7 @@ public class DHL {
 
 	public static void print(String message){
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String tmpString="["+sdf.format(new Date())+"]"+message+"\n";
+		String tmpString="["+sdf.format(new Date())+"]"+message+"\r\n";
 		FileWriter fstream;
 		try {
 			fstream = new FileWriter("legacydb.log",true);
