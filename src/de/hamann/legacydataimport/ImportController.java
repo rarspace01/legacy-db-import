@@ -45,7 +45,7 @@ public class ImportController {
 							//DatabaseThreadHandler.getInstance().addTransactions(currentFile);
 							new ModelHandlerBigTransactions().importFile(currentFile);
 							break;
-				default:	DHL.print("no File");
+				default:	DHL.print("["+iCur+"/"+iMax+"] - ["+currentFile+"]"+" - noFile");
 							break;
 				}
 				
