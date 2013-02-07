@@ -52,7 +52,7 @@ public class DataHandlerTransactions  {
 									tList.get(i).manager_number+";" +
 									tList.get(i).typecode+";" +
 									tList.get(i).netChange+";" +
-									tList.get(i).sharesheld+";\n");
+									tList.get(i).sharesheld+";\r\n");
 
 							
 						}else{
@@ -64,7 +64,7 @@ public class DataHandlerTransactions  {
 									tList.get(i).manager_number+"', '" +
 									tList.get(i).typecode.replace("'", "''")+"', '" +
 									tList.get(i).netChange+"', '" +
-									tList.get(i).sharesheld+"');\n");
+									tList.get(i).sharesheld+"');\r\n");
 						}
 						
 						out.close();
@@ -80,7 +80,7 @@ public class DataHandlerTransactions  {
 									tList.get(i).manager_number+";" +
 									tList.get(i).typecode+";" +
 									tList.get(i).netChange+";" +
-									tList.get(i).sharesheld+";\n");
+									tList.get(i).sharesheld+";\r\n");
 							
 						}else{
 							
@@ -92,7 +92,7 @@ public class DataHandlerTransactions  {
 									tList.get(i).typecode.replace("'", "''")+"', '" +
 									tList.get(i).netChange+"', '" +
 									tList.get(i).sharesheld+"') " +
-									"ON DUPLICATE KEY UPDATE sharesheld='"+tList.get(i).sharesheld+"';\n");
+									"ON DUPLICATE KEY UPDATE sharesheld='"+tList.get(i).sharesheld+"';\r\n");
 						}
 						
 						

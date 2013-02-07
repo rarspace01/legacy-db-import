@@ -57,7 +57,7 @@ public class DataHandlerStocks  {
 								stockList.get(i).sharesoustanding+";" +
 								stockList.get(i).sharesoustanding_eoq+";" +
 								stockList.get(i).shareprice_eoq+";" +
-								dateFormat.format(stockList.get(i).reportdate)+";\n");
+								dateFormat.format(stockList.get(i).reportdate)+";\r\n");
 						
 					}else{
 						
@@ -73,7 +73,7 @@ public class DataHandlerStocks  {
 								" '"+stockList.get(i).sharesoustanding+"'," +
 								" '"+stockList.get(i).sharesoustanding_eoq+"'," +
 								" '"+stockList.get(i).shareprice_eoq+"'," +
-								" '"+dateFormat.format(stockList.get(i).reportdate)+"');\n");
+								" '"+dateFormat.format(stockList.get(i).reportdate)+"');\r\n");
 					}
 					
 					
