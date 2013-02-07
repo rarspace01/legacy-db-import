@@ -17,6 +17,8 @@ public class ImportController {
 		int iMax=localIndex.getFilesCount();
 		int iCur=1;
 		
+		DHL.print("Found ["+iMax+"] files in 'db' folder");
+		
 		while((currentFile=localIndex.getNextFile())!=null){
 			//updateProgress((iCur/iMax));
 			if(isValidFileName(currentFile)){

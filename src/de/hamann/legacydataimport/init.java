@@ -1,5 +1,7 @@
 package de.hamann.legacydataimport;
 
+import java.io.File;
+
 public class init {
 
 	/**
@@ -11,6 +13,16 @@ public class init {
 		final String rev = "$Rev$";
 		
 		DHL.print("Parser started - "+rev);
+		
+		DHL.print("Checking Environment");
+		
+		if(!isValidEnvironment()){
+			DHL.print("Error, please create Folder 'db' and 'out' in the same directory");
+			DHL.print("Put the database files into 'db' retrive the output from the 'out' folder");
+			System.exit(1);
+		}else{
+			DHL.print("Environment ok - 'db' & 'out' folders exist");
+		}
 		
 		String tmpLevel="";
 		
@@ -32,6 +44,24 @@ public class init {
 		ImportController importController=new ImportController();
 		importController.import_Db();
 		
+	}
+	
+	public static boolean isValidEnvironment(){
+		boolean isValid=false;
+		File folder1=new File("out/");
+		File folder2=new File("db/");
+		if(!folder1.exists()){
+			folder1.mkdir();
+		}
+		if(!folder2.exists()){
+			folder2.mkdir();
+		}
+		
+		if(folder1.exists()&&folder2.exists()){
+			isValid=true;
+		}
+		
+		return isValid;
 	}
 	
 }
