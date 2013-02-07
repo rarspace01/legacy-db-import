@@ -51,9 +51,11 @@ public class init {
 		File folder1=new File("out/");
 		File folder2=new File("db/");
 		if(!folder1.exists()){
+			DHL.print("'out' folder missing - creating folder");
 			folder1.mkdir();
 		}
 		if(!folder2.exists()){
+			DHL.print("'db' folder missing - creating folder");
 			folder2.mkdir();
 		}
 		
