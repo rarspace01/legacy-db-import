@@ -34,20 +34,20 @@ public class ModelHandlerTransactions {
 			  //Read File Line By Line
 			  
 			  Transactions tmpTransaction1;
-			  Transactions tmpTransaction2;
+//			  Transactions tmpTransaction2;
 			  
 			  while ((strLine = br.readLine()) != null)   {
 				  tmpTransaction1=null;
-				  tmpTransaction2=null;
+//				  tmpTransaction2=null;
 				  
 				  tmpTransaction1=new Transactions();
 				  
 				  tImport_Basic(tmpTransaction1,strLine);
 				  
-				  if(ImportController.getYear(fullPath_)==2004&&ImportController.getQuarterShort(fullPath_)==3){
-					  tImport_Basic(tmpTransaction2, strLine.substring(25));
-					  tList.add(tmpTransaction2);
-				  }
+//				  if(ImportController.getYear(fullPath_)==2000&&ImportController.getQuarterShort(fullPath_)==3){
+//					  tImport_Basic(tmpTransaction2, strLine.substring(25));
+//					  tList.add(tmpTransaction2);
+//				  }
 				  
 				  tList.add(tmpTransaction1);
 				  
@@ -61,6 +61,8 @@ public class ModelHandlerTransactions {
 			    }catch (Exception e){//Catch exception if any
 					DHL.print("[MHT]Exception");
 					DHL.print(e.getMessage());
+					System.out.println(ImportController.getYear(fullPath_)+" - "+ImportController.getQuarterShort(fullPath_));
+					e.printStackTrace();
 			  }
 		//return tList;
 	}
@@ -69,6 +71,7 @@ public class ModelHandlerTransactions {
 	public void tImport_Basic(Transactions tmpT, String sLine){
 		String sWorkString=sLine;
 		
+		try {
 		tmpT.cusip=FW.getPos(sWorkString, 1, 8).trim();
 		
 		if(FW.getPos(sWorkString, 9, 13).trim().length()>0&&FW.getPos(sWorkString, 9, 13).trim().matches("[0-9]*")){
@@ -82,7 +85,6 @@ public class ModelHandlerTransactions {
 		
 		SimpleDateFormat reportDateFormatCustom=new SimpleDateFormat("dd.MM.yyyy");
 		
-		try {
 			
 				Calendar cal=Calendar.getInstance();
 				cal.set(ImportController.getYear(fullPath_), (ImportController.getQuarterShort(fullPath_)-1), 1);
@@ -92,7 +94,12 @@ public class ModelHandlerTransactions {
 		} catch (ParseException e) {
 			DHL.print("[MHT]Exception - on ["+sLine+"]");
 			DHL.print(e.getMessage());
-		}
+		}catch (Exception e){//Catch exception if any
+			DHL.print("[MHT]Exception");
+			DHL.print(e.getMessage());
+			System.out.println("ERROR in : ["+sWorkString+"]+size: "+sWorkString.length());
+			e.printStackTrace();
+	  }
 		
 		}
 	
