@@ -45,10 +45,12 @@ public class ImportController {
 							//DatabaseThreadHandler.getInstance().addTransactions(currentFile);
 							new ModelHandlerBigTransactions().importFile(currentFile);
 							break;
-				default:	DHL.print("["+iCur+"/"+iMax+"] - ["+currentFile+"]"+" - noFile");
+				default:	DHL.print("["+iCur+"/"+iMax+"] - ["+currentFile+"]"+" - unhandled Importfile");
 							break;
 				}
 				
+			}else{
+				DHL.print("["+iCur+"/"+iMax+"] - ["+currentFile+"]"+" - unknownFilenamepattern");
 			}
 			iCur++;
 		}
@@ -83,8 +85,7 @@ public class ImportController {
 		boolean isValid=false;
 		String workString="";
 		workString=getFilename(fullPath);
-		workString=workString.substring(workString.indexOf(".")+1);
-		if((!workString.contains("save"))&&(!workString.contains("sp"))){
+		if(workString.matches("^[s][0-9]{3}[.][0-9]{4}$")){
 			isValid=true;
 		}
 		return isValid;
